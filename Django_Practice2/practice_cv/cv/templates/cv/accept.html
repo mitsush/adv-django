@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile Form</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #f4f7f6; /* Light grey background */
+      color: #333333; /* Dark text color */
+    }
+    .container {
+      background-color: #ffffff; /* White container background */
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      color: #0056b3; /* Blue color for the title */
+    }
+    .form-control {
+      background-color: #f1f1f1; /* Light grey for form fields */
+      border-color: #ddd; /* Subtle border */
+    }
+    .form-control:focus {
+      background-color: #ffffff; /* White when focused */
+      border-color: #0056b3; /* Blue focus border */
+    }
+    .btn-primary {
+      background-color: #0056b3; /* Blue button */
+      border-color: #0056b3;
+    }
+    .btn-primary:hover {
+      background-color: #004085; /* Darker blue when hovered */
+      border-color: #004085;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Profile Form</h2>
+    <form method="POST">
+    {% csrf_token %}
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input type="text" class="form-control" id="phone" name="phone" required>
+      </div>
+      <div class="form-group">
+        <label for="summary">Summary</label>
+        <textarea class="form-control" id="summary" name="summary" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="degree">Degree</label>
+        <input type="text" class="form-control" id="degree" name="degree" required>
+      </div>
+      <div class="form-group">
+        <label for="school">School</label>
+        <input type="text" class="form-control" id="school" name="school" required>
+      </div>
+      <div class="form-group">
+        <label for="university">University</label>
+        <input type="text" class="form-control" id="university" name="university" required>
+      </div>
+      <div class="form-group">
+        <label for="previous_work">Previous Work Experience</label>
+        <textarea class="form-control" id="previous_work" name="previous_work" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="skills">Skills</label>
+        <textarea class="form-control" id="skills" name="skills" rows="3" required></textarea>
+      </div>
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="employed" name="employed">
+        <label class="form-check-label" for="employed">Currently Employed</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row m-5">
+            <div class="col-md-12">
+                <h2>CV Database Profile List</h2>
+            </div>
+
+        </div>
+
+{% for profile in profiles %}
+    <h2>{{ profile.name }}</h2>
+    <p>Email: {{ profile.email }}</p>
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="150">
+    {% else %}
+        <p>No profile picture uploaded.</p>
+    {% endif %}
+    <div class="col-md-6">
+        <a href="/{{profile.id}}" class="btn btn-warning">Download CV</a>
+    </div>
+    <form method="post" action="{% url 'share_cv_email' profile.id %}">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Recipient Email" required>
+        <button type="submit">Share via Email</button>
+    </form>
+        <!-- Facebook Share -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">Share on Facebook</a>
+        <!-- Twitter Share -->
+    <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check out this CV!">Share on Twitter</a>
+    <!-- LinkedIn Share -->
+    <a href="https://www.linkedin.com/shareArticle?url={{ request.build_absolute_uri }}&title=CV Share">Share on LinkedIn</a>
+
+{% endfor %}
+
+    </div>
+</body>
+</html>
