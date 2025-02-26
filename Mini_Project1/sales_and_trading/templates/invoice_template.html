@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Invoice #{{ invoice.id }}</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+      background-color: #f4f7f6; /* Light grey background */
+      color: #333333; /* Dark text color */
+    }
+    h2 {
+      color: #0056b3; /* Blue color for heading */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+      background-color: #ffffff; /* White background for table */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      border: 1px solid #ddd; /* Lighter border color */
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #0056b3; /* Blue background for headers */
+      color: #ffffff; /* White text in headers */
+    }
+    td {
+      background-color: #f9f9f9; /* Light grey background for table cells */
+    }
+    td:hover {
+      background-color: #e2e6ea; /* Light hover effect */
+    }
+  </style>
+</head>
+<body>
+  <h2>Invoice #{{ invoice.id }}</h2>
+  <p><strong>Date:</strong> {{ invoice.invoice_date|date:"Y-m-d H:i" }}</p>
+  <p><strong>Customer:</strong> {{ invoice.sales_order.customer.name }}</p>
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+    {% for item in invoice.items.all %}
+    <tr>
+      <td>{{ item.product.name }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.total }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
