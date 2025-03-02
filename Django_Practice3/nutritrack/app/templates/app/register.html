@@ -1,0 +1,92 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Register - Nutrition Tracker{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-success-subtle">
+                <h3 class="text-center mb-0">
+                    <i class="fas fa-user-plus me-2"></i>Create Account
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Choose a username" required>
+                            </div>
+                            {% if form.username.errors %}
+                            <small class="text-danger">{{ form.username.errors|striptags }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="form-label">Email Address</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+                            </div>
+                            {% if form.email.errors %}
+                            <small class="text-danger">{{ form.email.errors|striptags }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="password1" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" name="password1" id="password1" placeholder="Create a password" required>
+                            </div>
+                            {% if form.password1.errors %}
+                            <small class="text-danger">{{ form.password1.errors|striptags }}</small>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="password2" class="form-label">Confirm Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" name="password2" id="password2" placeholder="Confirm your password" required>
+                            </div>
+                            {% if form.password2.errors %}
+                            <small class="text-danger">{{ form.password2.errors|striptags }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="mb-3">
+                        <small class="text-muted d-block mb-2">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Password must be at least 8 characters long and contain a mix of letters, numbers, and special characters.
+                        </small>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-user-plus me-2"></i>Register
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center py-3">
+                <p class="mb-0">Already have an account? <a href="{% url 'login' %}" class="text-decoration-none">Login here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

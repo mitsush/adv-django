@@ -1,0 +1,191 @@
+{% extends 'app/base.html' %}
+
+{% block title %}Add Food - Nutrition Tracker{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-12 mb-4">
+        <h1 class="mb-4">
+            <i class="fas fa-plus-circle me-2 text-success"></i>
+            Add Food to Your Log
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="add-existing-tab" data-bs-toggle="tab" 
+                                data-bs-target="#add-existing" type="button" role="tab" 
+                                aria-controls="add-existing" aria-selected="true">
+                            <i class="fas fa-list me-1"></i> Select from Database
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="add-new-tab" data-bs-toggle="tab" 
+                                data-bs-target="#add-new" type="button" role="tab" 
+                                aria-controls="add-new" aria-selected="false">
+                            <i class="fas fa-plus me-1"></i> Add New Food
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="add-existing" role="tabpanel" aria-labelledby="add-existing-tab">
+                        <form method="post" action="{% url 'add_food' %}">
+                            {% csrf_token %}
+                            
+                            <div class="mb-3">
+                                <label for="food_select" class="form-label">Select Food</label>
+                                <select class="form-select" id="food_select" name="food_select" required>
+                                    <option value="" selected disabled>-- Choose a food --</option>
+                                    {% for food in foods %}
+                                    <option value="{{ food.id }}">
+                                        {{ food.name }} ({{ food.calories }} kcal/{{ food.serving_size }} {{ food.serving_size_unit }})
+                                    </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Serving Size</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="amount" name="amount" min="0.1" step="0.1" value="1" required>
+                                    <span class="input-group-text">servings</span>
+                                </div>
+                                <small class="form-text text-muted">Enter the number of servings consumed</small>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus-circle me-1"></i> Add to Food Log
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="add-new" role="tabpanel" aria-labelledby="add-new-tab">
+                        <form method="post" action="{% url 'add_food' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="add_new_food" value="true">
+                            
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Food Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter food name" required>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="serving_size" class="form-label">Serving Size</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="serving_size" name="serving_size" min="0.1" step="0.1" required>
+                                        <select class="form-select" id="serving_size_unit" name="serving_size_unit" required>
+                                            <option value="g">g</option>
+                                            <option value="ml">ml</option>
+                                            <option value="oz">oz</option>
+                                            <option value="cup">cup</option>
+                                            <option value="tbsp">tbsp</option>
+                                            <option value="tsp">tsp</option>
+                                            <option value="piece">piece</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="calories" class="form-label">Calories</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="calories" name="calories" min="0" step="1" required>
+                                        <span class="input-group-text">kcal</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="protein" class="form-label">Protein</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="protein" name="protein" min="0" step="0.1" required>
+                                        <span class="input-group-text">g</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="carbs" class="form-label">Carbs</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="carbs" name="carbs" min="0" step="0.1" required>
+                                        <span class="input-group-text">g</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="fat" class="form-label">Fat</label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" id="fat" name="fat" min="0" step="0.1" required>
+                                        <span class="input-group-text">g</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus-circle me-1"></i> Add to Food Log
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-lightbulb me-2 text-warning"></i>Tips</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <small>Check food labels for accurate serving size information.</small>
+                    </li>
+                    <li class="list-group-item">
+                        <small>Use a kitchen scale for more precise measurements.</small>
+                    </li>
+                    <li class="list-group-item">
+                        <small>Don't see your food in the list? Add it to our database!</small>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card shadow">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-search me-2 text-primary"></i>Recently Added</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for food in recent_foods %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="mb-0">{{ food.name }}</p>
+                            <small class="text-muted">{{ food.serving_size }} {{ food.serving_size_unit }}</small>
+                        </div>
+                        <span class="badge bg-success rounded-pill">{{ food.calories }} kcal</span>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-center py-3">
+                        <i class="fas fa-info-circle text-muted"></i>
+                        <p class="mb-0 text-muted small">No recent foods to display</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('food_select').addEventListener('change', function() {
+
+    });
+</script>
+{% endblock %}
