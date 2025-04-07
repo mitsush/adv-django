@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Expense Tracker</title>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="bg-indigo-600 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center">
+                    <img class="h-10 mr-3" src="{% static 'myapp/images/wallet.png'%}" alt="Wallet icon">
+                    <span class="self-center text-xl font-bold tracking-tight">Expense Tracker</span>
+                </a>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#" class="px-3 py-2 rounded hover:bg-indigo-700 transition duration-300">Dashboard</a>
+                    <a href="#" class="px-3 py-2 rounded hover:bg-indigo-700 transition duration-300">Reports</a>
+                    <a href="#" class="px-3 py-2 rounded hover:bg-indigo-700 transition duration-300">Settings</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto px-4 py-6">
+        {%block body%}
+        {%endblock%}
+    </main>
+    
+    <footer class="bg-gray-800 text-white mt-12 py-6">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex space-x-4">
+                    <a href="#" class="hover:text-indigo-400 transition duration-300">Privacy Policy</a>
+                    <a href="#" class="hover:text-indigo-400 transition duration-300">Terms of Service</a>
+                    <a href="#" class="hover:text-indigo-400 transition duration-300">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
