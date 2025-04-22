@@ -1,0 +1,30 @@
+# Django and core packages
+Django==4.2.9
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.0
+django-cors-headers==4.3.1
+django-filter==23.5
+django-redis==5.4.0
+drf-yasg==1.21.7
+
+# Database
+psycopg2-binary==2.9.9
+
+# Celery
+celery==5.3.6
+redis==5.0.1
+
+# Resume parsing
+openai==1.8.0
+PyPDF2==3.0.1
+docx2txt==0.8
+python-dateutil==2.8.2
+
+# Testing
+pytest==7.4.4
+pytest-django==4.7.0
+pytest-cov==4.1.0
+
+# Development and deployment
+gunicorn==21.2.0
+whitenoise==6.6.0 
